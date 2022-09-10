@@ -99,5 +99,12 @@ class Mhsan_Public {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/mhsan-public.js', array( 'jquery' ), $this->version, false );
 
 	}
+	public function register_shortcodes() {
+		add_shortcode( 'display_signup', array( $this, 'display_signup_form') );
+	}
 
+	public function display_signup_form(){
+		error_log("shortcode displayed");
+		require_once plugin_dir_url(__FILE__ ) . 'public/signup.php';
+	}
 }
