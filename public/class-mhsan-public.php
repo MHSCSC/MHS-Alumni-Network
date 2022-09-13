@@ -74,7 +74,7 @@ class Mhsan_Public {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/mhsan-public.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style( 'bootstrap', '//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' );
 	}
 
 	/**
@@ -97,14 +97,13 @@ class Mhsan_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/mhsan-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script( 'bootstrap', "//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", false );
 	}
 	public function register_shortcodes() {
 		add_shortcode( 'display_signup', array( $this, 'display_signup_form') );
 	}
 
 	public function display_signup_form(){
-		error_log("shortcode displayed");
-		require_once plugin_dir_url(__FILE__ ) . 'public/signup.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/signup.php';
 	}
 }
