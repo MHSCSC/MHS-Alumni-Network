@@ -31,15 +31,16 @@
 		 	$student_tablename = $wpdb->prefix."studentInfo";
 
 			// view details for volunteer with vid
-			if(isset($_GET['vid'])){
+			if(isset($_GET['vid']) && isset($_GET['type'])){
 
 				//get volunteer id
 				$vid = $_GET['vid'];
-				
-				}
+
+				//get type
+				$type = $_GET['type'];
 
 				//pull user info
-				$sql = "SELECT * from $volunteers_tablename where id='%d'";
+				$sql = "SELECT * from " . $type == "a" ? $alumni_tablename : $student_tablename . " where id='%d'";
 				$volunteer_results = $wpdb->get_results($wpdb->prepare($sql, $vid));
 				$user = $volunteer_results[0];
 
@@ -122,57 +123,49 @@
 				if($editing) echo "<br /><input class='button button-primary' type='submit' name='update_volunteer' value='Save Volunteer Changes' onclick=\"return confirm('Do you want to save the changes you made on $volunteer->firstname $volunteer->lastname? ')\" /><br /><br />";
 			else{
 				// pull students list
-				$sql = "SELECT * from $student_tablename;
+				$sql = "SELECT * from $student_tablename";
                 $student_results = $wpdb->get_results($wpdb->prepare($sql));
 
-				echo '<div class="row">';
-				echo '<label for="volunteer_start_date" class="form-label">Start Date</label>';
-				echo '<input class="form-contol" value="'.$start.'" type="date" name="volunteer_start_date" style="margin: 10px 50px 10px 10px;">';
-				echo '<label for="volunteer_end_date" class="form-label">End Date</label>';
-				echo '<input type="date" value="'.$end.'" name="volunteer_end_date" style="margin: 10px 20px 10px 10px;">';
-				echo '
-				  	Action Required?
-				  <input class="form-check-input" type="checkbox" value="on" name="filterByActionRequired" style="margin-right: 20px;" '; if(isset($_POST['filterByActionRequired'])){echo 'checked';} echo '>
-				  	New Volunteers?
-				  <input class="form-check-input" type="checkbox" value="on" name="filterByNewVolunteers" style="margin-right: 20px;" '; if(isset($_POST['filterByNewVolunteers'])){echo 'checked';} echo '>
-				  ';
-				  echo '<button class="button button-primary" name="volunteer_filter" form="aydn-admin" style="vertical-align: middle;">Filter</button>';
-				echo '</div>';
+				// pull alumni list
+				$sql = "SELECT * from $alumni_tablename";
+                $alumni_results = $wpdb->get_results($wpdb->prepare($sql));
+
 				echo '<table class="table"><tr style="background-color:cornsilk;">
-				<th></th>
-			  	<th>First Name</th>
-			  	<th>Last Name</th>
-				<th>Date of Birth</th>
-			  	<th>AYDN #</th>
+			  	<th>Display Name</th>
+			  	<th>Graduaton Year</th>
+				<th>Area of Expertise</th>
 			  	<th>Email</th>
-				<th>Approved Hours</th>
 			  	<th>Status</th>
 			  	<th></th>
 			  	</tr>';
 			  	$bgcolor = '#fff';
-			  	for($i = 0; $i < count($results); $i++){
+			  	for($i = 0; $i < count($students_results); $i++){
 			  		if($i % 2 == 0) $bgcolor = '#eee';
 			  		else $bgcolor = '#fff';
-					$actionRequired = $results[$i]->hours_action_count != 0 || $results[$i]->courses_action_count != 0 || $results[$i]->status == 'New';
-					if(!isset($_POST['filterByActionRequired']) || (isset($_POST['filterByActionRequired']) && $actionRequired)){
-						if(!isset($_POST['filterByNewVolunteers']) || (isset($_POST['filterByNewVolunteers']) && $results[$i]->status == 'New')){
-							echo "<tr style=\"background-color:$bgcolor;\">";
-							echo $actionRequired ? "<td style=\"color: red; font-weight: bold;\">!</td>" : "<td></td>";
-							echo "<td>".$results[$i]->firstname."</td>";
-							echo "<td>".$results[$i]->lastname."</td>";	
-							echo "<td>".$results[$i]->birthdate."</td>";	
-							echo "<td>".$results[$i]->aydn_number."</td>";	  
-							echo "<td>".$results[$i]->email."</td>";
-							echo "<td>".$results[$i]->hours."</td>";
-							echo "<td>".$results[$i]->status."</td>";	
-							echo '<td><a href="'.$uri.'&vid='.$results[$i]->id.'">View Details</a></td>';		
-							echo "</tr>";
-						}
-					}
+					echo "<tr style=\"background-color:$bgcolor;\">";
+					echo "<td>".$students_results[$i]->displayName."</td>";
+					echo "<td>".$students_results[$i]->graduationYear."</td>";	
+					echo "<td>".$students_results[$i]->areaOfExpertise."</td>";	  
+					echo "<td>".$students_results[$i]->email."</td>";
+					echo "<td>".$students_results[$i]->status."</td>";	
+					echo '<td><a href="'.$uri.'&vid='.$students_results[$i]->id.'&type=s'.'">View Details</a></td>';		
+					echo "</tr>";
 			  	}
+				for($i = 0; $i < count($alumni_results); $i++){
+					if($i % 2 == 0) $bgcolor = '#eee';
+					else $bgcolor = '#fff';
+					echo "<tr style=\"background-color:$bgcolor;\">";
+					echo "<td>".$alumni_results[$i]->displayName."</td>";
+					echo "<td>".$alumni_results[$i]->graduationYear."</td>";	
+					echo "<td>".$alumni_results[$i]->areaOfExpertise."</td>";	  
+					echo "<td>".$alumni_results[$i]->email."</td>";
+					echo "<td>".$alumni_results[$i]->status."</td>";	
+					echo '<td><a href="'.$uri.'&vid='.$alumni_results[$i]->id.'&type=a'.'">View Details</a></td>';		
+					echo "</tr>";
+				}
 			  	echo "</table>";
+				echo "</form>";
 		    }
+		}
 		?>
-	</form>
-
 </div>

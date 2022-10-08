@@ -39,7 +39,7 @@
             'status' => str_ends_with($_POST['schoolEmail'], "@boe.mono.k12.wv.us") || str_ends_with($_POST['schoolEmail'], "@stu.k12.wv.us") ? "Verified" : "New"
         );
 
-        $format = array('%s','%d');
+        $format = array('%d');
         $wpdb->insert($studentTable,$data,$format);
     }
     else if(isset($_POST['submitAlumniSignupForm'])){
@@ -59,7 +59,7 @@
             'status' => "New"
         );
 
-        $format = array('%s','%d');
+        $format = array('%d');
         $wpdb->insert($alumniTable,$data,$format);
 
         echo "Account created. Please wait for an email to set your password.";
