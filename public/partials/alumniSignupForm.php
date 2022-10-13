@@ -6,8 +6,8 @@
                 <input class="form-control w-25" type="text" id="displayName" name="displayName" required>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="preferredEmail">Preferred Email</label>
-                <input class="form-control w-25" type="text" id="preferredEmail" name="preferredEmail" required>
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control w-25" type="text" id="email" name="email" required>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="graduationYear">High School Graduation Year</label>
