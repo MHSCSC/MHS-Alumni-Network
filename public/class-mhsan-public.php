@@ -101,10 +101,15 @@ class Mhsan_Public {
 	}
 	public function register_shortcodes() {
 		add_shortcode( 'display_signup', array( $this, 'display_signup_form') );
+		add_shortcode( 'display_alumni_list', array( $this, 'display_alumni_list') );
 
 	}
 	
 	public function display_signup_form(){
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/signup.php';
+	}
+
+	public function display_alumni_list(){
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/alumniList.php';
 	}
 }
