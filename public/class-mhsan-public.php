@@ -101,9 +101,14 @@ class Mhsan_Public {
 	}
 	public function register_shortcodes() {
 		add_shortcode( 'display_signup', array( $this, 'display_signup_form') );
+		add_shortcode( 'display_posts', array( $this, 'display_user_post') );
 	}
-	
+
 	public function display_signup_form(){
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/signup.php';
+	}
+
+	public function display_user_post(){
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/post.php';
 	}
 }

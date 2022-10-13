@@ -46,6 +46,9 @@ class Mhsan_Activator {
 		// Alumni Info Table
 		$alumniTable = $table_prefix . 'alumniInfo';
 
+		// Post Info Table
+		$postTable = $table_prefix . 'postInfo';
+
 		// Create Student Table if not exist
 		if( $wpdb->get_var( "show tables like '$studentTable'" ) != $studentTable ) {
 
@@ -83,6 +86,29 @@ class Mhsan_Activator {
 			$sql .= " `email` varchar(100) NOT NULL,";
 			$sql .= " `status` varchar(20) NOT NULL";
 			$sql .= " ) ENGINE=InnoDB";
+
+			// Include Upgrade Script
+			require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
+		
+			// Create Table
+			dbDelta( $sql );
+		}
+
+		// Create Post Table if not exist
+		if( $wpdb->get_var( "show tables like '$postTable'" ) != $postTable ) {
+
+			// Query - Create Table
+			$sql = "CREATE TABLE `$postTable` (";
+			$sql .= " `id` int(11) NOT NULL PRIMARY KEY auto_increment, ";
+			$sql .= " `wp_id` int(11), ";
+			$sql .= " `author` varchar(20) NOT NULL, ";
+			$sql .= " `postName` varchar(50) NOT NULL, ";
+			$sql .= " `category` varchar(30) NOT NULL, ";
+			$sql .= " `status` varchar(20) NOT NULL, ";
+			$sql .= " `content` varchar(20000) NOT NULL,";
+			$sql .= " `upvotes` int(10000) NOT NULL,";
+			$sql .= " `downvotes` varchar(10000) NOT NULL";
+			$sql .= ") ENGINE=InnoDB";
 
 			// Include Upgrade Script
 			require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
