@@ -1,20 +1,7 @@
-<?php
 
-/**
- * Provide a admin area view for the plugin
- *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       https://github.com/ShawnLi14/AYDN-forms
- * @since      1.0.0
- *
- * @package    Aydn_Forms
- * @subpackage Aydn_Forms/admin/partials
- */
-?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<div id="wrap" class="aydn">
+<div id="wrap" class="mhsan">
 	<h1>MHSAN Admin Console</h1>
 		<?php
 			// get current page uri		  		
@@ -79,56 +66,15 @@
 				//breadcrumb
 				$breadcrumb = "<a href=\"$homeURL\">Admin Home</a> > User Details - $user->name";
 
-				// display volunteer personal information
-				echo "$breadcrumb<br><br>";
-				echo '<input class="ui-button ui-widget ui-corner-all" name="approve_volunteer" type="submit" value="Approve Volunteer" onclick="return confirm('."'Do you want to approve $volunteer->firstname $volunteer->lastname as an official AYDN volunteer? This will create an Wordpress account for them.'".')" style="background-color: aquamarine;">
-				<input class="ui-button ui-widget ui-corner-all" name="disapprove_volunteer" type="submit" value="Disapprove Volunteer" onclick="return confirm('."'Do you want to DENY $volunteer->firstname $volunteer->lastname from being an official AYDN volunteer?'".')" style="background-color: darkred;color:white;">
-				<input class="ui-button ui-widget ui-corner-all" name="editing" type="submit" value="Edit Volunteer" style="background-color: yellow;float: right;"> 
-				<input class="ui-button ui-widget ui-corner-all" name="delete_volunteer" type="submit" value="Delete Volunteer" onclick="return confirm('."'Do you want to DELETE $volunteer->firstname $volunteer->lastname from the AYDN database? This will remove all records of their submitted courses and hours.'".')" style="background-color: darkred;color:white;float: right;">&nbsp;&nbsp;<br /><br />';
-				echo "<div class=\"row\">";
-				echo "<div class=\"col-6\">";
-				echo "<span class=\"title\">First Name:</span>";
-				if($editing) echo "<input type='text' name='edit_firstname' value='$volunteer->firstname' />";
-				else echo $volunteer->firstname;
-				echo "<br /><span class=\"title\">Last Name:</span>";
-				if($editing) echo "<input type='text' name='edit_lastname' value='$volunteer->lastname' />";
-				else echo $volunteer->lastname;
-				echo "<br /><span class=\"title\">Display Name:</span>";
-				if($editing) echo "<input type='text' name='edit_name' value='$volunteer->name' />";
-				else echo $volunteer->name;
-				echo "<br /><span class=\"title\">AYDN #:</span>";
-				if($editing) echo "<input type='text' name='edit_aydn_number' value='$volunteer->aydn_number' />";
-				else echo $volunteer->aydn_number;
-				echo "<br /><span class=\"title\">Total Approved Hours:</span>$total_hours_approved<br>";
-				echo "</div>";
-				echo "<div class=\"col-6\">";
-				echo "<span class=\"title\">Email:</span>";
-				if($editing) echo "<input type='text' name='edit_email' value='$volunteer->email' />";
-				else echo $volunteer->email;
-				echo "<br /><span class=\"title\">Status:</span>";
-				if($editing) echo "<input type='text' name='edit_status' value='$volunteer->status' />";
-				else echo $volunteer->status;
-				echo "<br /><span class=\"title\">Birth Date:</span>";
-				if($editing) echo "<input type='text' name='edit_birthdate' value='$volunteer->birthdate' />";
-				else echo $volunteer->birthdate;
-				echo "<br /><span class=\"title\">Parent Contact:</span>";
-				if($editing) echo "<input type='text' name='edit_parent_contact' value='$volunteer->parent_contact' />";
-				else echo $volunteer->parent_contact;				
-				echo "<br /></div></div>";
-				echo "<div class=\"row\" id=\"resume\">";
-				echo "<h3>Resume:</h3><div>";
-				if($editing) echo "<textarea name='edit_resume' style='width:100%;'>".nl2br($volunteer->resume)."</textarea>";
-				else echo nl2br($volunteer->resume);
-				echo "</div></div>";
-				if($editing) echo "<br /><input class='button button-primary' type='submit' name='update_volunteer' value='Save Volunteer Changes' onclick=\"return confirm('Do you want to save the changes you made on $volunteer->firstname $volunteer->lastname? ')\" /><br /><br />";
+			}
 			else{
 				// pull students list
 				$sql = "SELECT * from $student_tablename";
-                $student_results = $wpdb->get_results($wpdb->prepare($sql));
+                $student_results = $wpdb->get_results($sql);
 
 				// pull alumni list
 				$sql = "SELECT * from $alumni_tablename";
-                $alumni_results = $wpdb->get_results($wpdb->prepare($sql));
+                $alumni_results = $wpdb->get_results($sql);
 
 				echo '<table class="table"><tr style="background-color:cornsilk;">
 			  	<th>Display Name</th>
@@ -139,16 +85,16 @@
 			  	<th></th>
 			  	</tr>';
 			  	$bgcolor = '#fff';
-			  	for($i = 0; $i < count($students_results); $i++){
+			  	for($i = 0; $i < count($student_results); $i++){
 			  		if($i % 2 == 0) $bgcolor = '#eee';
 			  		else $bgcolor = '#fff';
 					echo "<tr style=\"background-color:$bgcolor;\">";
-					echo "<td>".$students_results[$i]->displayName."</td>";
-					echo "<td>".$students_results[$i]->graduationYear."</td>";	
-					echo "<td>".$students_results[$i]->areaOfExpertise."</td>";	  
-					echo "<td>".$students_results[$i]->email."</td>";
-					echo "<td>".$students_results[$i]->status."</td>";	
-					echo '<td><a href="'.$uri.'&vid='.$students_results[$i]->id.'&type=s'.'">View Details</a></td>';		
+					echo "<td>".$student_results[$i]->displayName."</td>";
+					echo "<td>".$student_results[$i]->graduationYear."</td>";	
+					echo "<td>".$student_results[$i]->areaOfExpertise."</td>";	  
+					echo "<td>".$student_results[$i]->schoolEmail."</td>";
+					echo "<td>".$student_results[$i]->status."</td>";	
+					echo '<td><a href="'.$uri.'&vid='.$student_results[$i]->id.'&type=s'.'">View Details</a></td>';		
 					echo "</tr>";
 			  	}
 				for($i = 0; $i < count($alumni_results); $i++){
@@ -166,6 +112,5 @@
 			  	echo "</table>";
 				echo "</form>";
 		    }
-		}
 		?>
 </div>
