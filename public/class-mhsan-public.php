@@ -102,6 +102,8 @@ class Mhsan_Public {
 	public function register_shortcodes() {
 		add_shortcode( 'display_signup', array( $this, 'display_signup_form') );
 		add_shortcode( 'display_posts', array( $this, 'display_user_post') );
+		add_shortcode( 'display_alumni_list', array( $this, 'display_alumni_list') );
+
 	}
 
 	public function display_signup_form(){
@@ -110,5 +112,7 @@ class Mhsan_Public {
 
 	public function display_user_post(){
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/post.php';
+	public function display_alumni_list(){
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/alumniList.php';
 	}
 }
