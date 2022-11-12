@@ -75,6 +75,7 @@ class Mhsan_Admin {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/mhsan-admin.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'jquery-ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'bootstrap', '//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' );
 	}
 
 	/**
@@ -97,6 +98,7 @@ class Mhsan_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/mhsan-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 'bootstrap', "//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js", false );
 		wp_enqueue_script( 'jquery-ui-widget' );
 		wp_enqueue_script( 'jquery-ui-mouse' );
 		wp_enqueue_script( 'jquery-ui-accordion' );

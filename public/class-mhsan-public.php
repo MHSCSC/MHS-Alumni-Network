@@ -112,6 +112,7 @@ class Mhsan_Public {
 
 	public function display_user_post(){
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/post.php';
+	}
 	public function display_alumni_list(){
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/alumniList.php';
 	}

@@ -59,8 +59,7 @@ class Mhsan_Activator {
 			$sql .= " `displayName` varchar(20) NOT NULL, ";
 			$sql .= " `graduationYear` varchar(4) NOT NULL, ";
 			$sql .= " `areaOfExpertise` varchar(50) NOT NULL, ";
-			$sql .= " `schoolEmail` varchar(50) NOT NULL, ";
-			$sql .= " `preferredEmail` varchar(100) NOT NULL,";
+			$sql .= " `email` varchar(50) NOT NULL, ";
 			$sql .= " `status` varchar(20) NOT NULL";
 			$sql .= ") ENGINE=InnoDB";
 
