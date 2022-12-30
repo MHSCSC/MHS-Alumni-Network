@@ -103,7 +103,7 @@ class Mhsan_Public {
 		add_shortcode( 'display_signup', array( $this, 'display_signup_form') );
 		add_shortcode( 'display_posts', array( $this, 'display_user_post') );
 		add_shortcode( 'display_alumni_list', array( $this, 'display_alumni_list') );
-
+		add_shortcode( 'display_dashboard_navbar', array( $this, 'display_dashboard_nav_bar') );
 	}
 
 	public function display_signup_form(){
@@ -115,5 +115,8 @@ class Mhsan_Public {
 	}
 	public function display_alumni_list(){
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/alumniList.php';
+	}
+	public function display_dashboard_nav_bar(){
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/dashboardNavBar.php';
 	}
 }
